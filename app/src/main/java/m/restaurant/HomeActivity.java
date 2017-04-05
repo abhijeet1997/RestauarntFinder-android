@@ -29,6 +29,7 @@ public class HomeActivity extends AppCompatActivity  {
     private ProgressBar progressBar;
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
+    private FirebaseUser user;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -38,12 +39,61 @@ public class HomeActivity extends AppCompatActivity  {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
+
+                    btnChangeEmail.setVisibility(View.VISIBLE);
+                    btnChangePassword.setVisibility(View.VISIBLE);
+                    btnSendResetEmail.setVisibility(View.VISIBLE);
+                    btnRemoveUser.setVisibility(View.VISIBLE);
+                    signOut.setVisibility(View.VISIBLE);
+
+
+                    //get current user
+//
+
+
+
+
+
                     return true;
                 case R.id.navigation_dashboard:
                     mTextMessage.setText(R.string.title_dashboard);
+                    sendEmail.setVisibility(View.GONE);
+                    remove.setVisibility(View.GONE);
+                    btnChangeEmail.setVisibility(View.GONE);
+                    btnChangePassword.setVisibility(View.GONE);
+                    btnSendResetEmail.setVisibility(View.GONE);
+                    btnRemoveUser.setVisibility(View.GONE);
+                    signOut.setVisibility(View.GONE);
+                    oldEmail.setVisibility(View.GONE);
+                    newEmail.setVisibility(View.GONE);
+                    password.setVisibility(View.GONE);
+                    newPassword.setVisibility(View.GONE);
+                    changeEmail.setVisibility(View.GONE);
+                    changePassword.setVisibility(View.GONE);
+                    remove.setVisibility(View.GONE);
+                    signOut.setVisibility(View.GONE);
+
+
                     return true;
                 case R.id.navigation_notifications:
                     mTextMessage.setText("settings");
+                    mTextMessage.setText(R.string.title_dashboard);
+                    btnChangeEmail.setVisibility(View.GONE);
+                    btnChangePassword.setVisibility(View.GONE);
+                    btnSendResetEmail.setVisibility(View.GONE);
+                    btnRemoveUser.setVisibility(View.GONE);
+                    signOut.setVisibility(View.GONE);
+                    oldEmail.setVisibility(View.GONE);
+                    sendEmail.setVisibility(View.GONE);
+                    newEmail.setVisibility(View.GONE);
+                    password.setVisibility(View.GONE);
+                    newPassword.setVisibility(View.GONE);
+                    changeEmail.setVisibility(View.GONE);
+                    changePassword.setVisibility(View.GONE);
+                    remove.setVisibility(View.GONE);
+                    signOut.setVisibility(View.GONE);
+
+
                     return true;
             }
             return false;
@@ -56,14 +106,11 @@ public class HomeActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
         auth = FirebaseAuth.getInstance();
 
-        //get current user
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+         user = FirebaseAuth.getInstance().getCurrentUser();
 
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -77,7 +124,6 @@ public class HomeActivity extends AppCompatActivity  {
                 }
             }
         };
-
         btnChangeEmail = (Button) findViewById(R.id.change_email_button);
         btnChangePassword = (Button) findViewById(R.id.change_password_button);
         btnSendResetEmail = (Button) findViewById(R.id.sending_pass_reset_button);
@@ -92,7 +138,6 @@ public class HomeActivity extends AppCompatActivity  {
         newEmail = (EditText) findViewById(R.id.new_email);
         password = (EditText) findViewById(R.id.password);
         newPassword = (EditText) findViewById(R.id.newPassword);
-
         oldEmail.setVisibility(View.GONE);
         newEmail.setVisibility(View.GONE);
         password.setVisibility(View.GONE);
@@ -102,7 +147,6 @@ public class HomeActivity extends AppCompatActivity  {
         sendEmail.setVisibility(View.GONE);
         remove.setVisibility(View.GONE);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         if (progressBar != null) {
             progressBar.setVisibility(View.GONE);
@@ -196,14 +240,16 @@ public class HomeActivity extends AppCompatActivity  {
         btnSendResetEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                oldEmail.setVisibility(View.VISIBLE);
+                oldEmail.setVisibility(View.GONE);
                 newEmail.setVisibility(View.GONE);
                 password.setVisibility(View.GONE);
                 newPassword.setVisibility(View.GONE);
                 changeEmail.setVisibility(View.GONE);
                 changePassword.setVisibility(View.GONE);
-                sendEmail.setVisibility(View.VISIBLE);
+                sendEmail.setVisibility(View.GONE);
                 remove.setVisibility(View.GONE);
+                btnChangeEmail.setVisibility(View.GONE);
+
             }
         });
 
@@ -262,6 +308,14 @@ public class HomeActivity extends AppCompatActivity  {
                 signOut();
             }
         });
+
+
+
+        mTextMessage = (TextView) findViewById(R.id.message);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+
     }
 
     public void signOut() {
