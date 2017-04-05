@@ -32,7 +32,7 @@ public class SignupActivity extends AppCompatActivity {
 
         if (auth.getCurrentUser() != null) {
             // User is logged in
-            Intent i = new Intent(getApplicationContext() , MainActivity.class);
+            Intent i = new Intent(getApplicationContext() , HomeActivity.class);
             startActivity(i);
         }
 
@@ -53,7 +53,9 @@ public class SignupActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent i = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(i);
+
             }
         });
 
