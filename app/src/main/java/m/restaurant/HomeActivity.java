@@ -13,6 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +32,7 @@ public class HomeActivity extends AppCompatActivity  {
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private String urlJsonObj = "https://developers.zomato.com/api/v2.1/categories?user-key=4da6dfa7c8d8ed12ceb5d84bf629c99e";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -45,13 +48,6 @@ public class HomeActivity extends AppCompatActivity  {
                     btnSendResetEmail.setVisibility(View.VISIBLE);
                     btnRemoveUser.setVisibility(View.VISIBLE);
                     signOut.setVisibility(View.VISIBLE);
-
-
-                    //get current user
-//
-
-
-
 
 
                     return true;
@@ -340,6 +336,15 @@ public class HomeActivity extends AppCompatActivity  {
         if (authListener != null) {
             auth.removeAuthStateListener(authListener);
         }
+    }
+
+    private void zomatorequest(){
+
+
+
+
+
+
     }
 
 }
